@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "b7622365-2c98-43f0-9656-463f7584be80",
+		"name": "Repeat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Methods",
+			"item": [
+				{
+					"name": "1. Create Imposter - Repeat / Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"protocol\": \"http\",\r\n    \"port\": 9908,\r\n    \"stubs\": [\r\n        {\r\n            \"predicates\": [\r\n                {\r\n                    \"equals\": {\r\n                        \"method\": \"POST\",\r\n                        \"path\": \"/repeat\"\r\n                    }\r\n                }\r\n            ],\r\n            \"responses\": [\r\n                {\r\n                    \"is\": {\r\n                        \"body\": \"First Call - 2 Times\"\r\n                    },\r\n                    \"repeat\": 2\r\n                },\r\n                {\r\n                    \"is\": {\r\n                        \"body\": \"Second Call - 1 time\"\r\n                    }\r\n                }\r\n                ,\r\n                {\r\n                    \"is\": {\r\n                        \"body\": \"Third Call - 3 Times\"\r\n                    },\r\n                    \"repeat\": 3\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:2525/imposters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "2525",
+							"path": [
+								"imposters"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. Tests",
+			"item": [
+				{
+					"name": "1.  Repeat / Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9908/repeat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9908",
+							"path": [
+								"repeat"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

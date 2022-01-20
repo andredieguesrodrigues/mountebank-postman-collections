@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "5af04981-fc9b-480f-b90a-8607c3e09d41",
+		"name": "Proxy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Methods",
+			"item": [
+				{
+					"name": "1. Create Imposters",
+					"item": [
+						{
+							"name": "1. Create Imposter - ProxyOnce",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"port\": 9905,\r\n    \"protocol\": \"http\",\r\n    \"recordRequests\": true,\r\n    \"stubs\": [\r\n        {\r\n            \"responses\": [\r\n                {\r\n                    \"proxy\": {\r\n                        \"to\": \"https://swapi.dev/api\",\r\n                        \"mode\": \"proxyOnce\",\r\n                        \"predicateGenerators\": [\r\n                            {\r\n                                \"matches\": {\r\n                                    \"headers\": true,\r\n                                    \"method\": true,\r\n                                    \"path\": true\r\n                                },\r\n                                \"caseSensitive\": true\r\n                            }\r\n                        ]\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:2525/imposters",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2525",
+									"path": [
+										"imposters"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "2. Change Stubs",
+					"item": [
+						{
+							"name": "1. Change Stub - Real Service",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"predicates\": [\r\n        {\r\n            \"equals\": {\r\n                \"method\": \"GET\",\r\n                \"path\": \"/api/people/1\"\r\n            }\r\n        }\r\n    ],\r\n    \"responses\": [\r\n        {\r\n            \"is\": {\r\n                \"statusCode\": 200,\r\n            \"headers\": {\r\n              \"Content-Type\": \"application/json\"\r\n            },\r\n                \"body\": \"{    \\\"name\\\": \\\"André Diegues\\\",    \\\"height\\\": \\\"172\\\",    \\\"mass\\\": \\\"77\\\",    \\\"hair_color\\\": \\\"blond\\\",    \\\"skin_color\\\": \\\"fair\\\",    \\\"eye_color\\\": \\\"blue\\\",    \\\"birth_year\\\": \\\"19BBY\\\",    \\\"gender\\\": \\\"male\\\",    \\\"homeworld\\\": \\\"http://swapi.dev/api/planets/1/\\\",    \\\"films\\\": [        \\\"http://swapi.dev/api/films/1/\\\",        \\\"http://swapi.dev/api/films/2/\\\",        \\\"http://swapi.dev/api/films/3/\\\",        \\\"http://swapi.dev/api/films/6/\\\"    ],    \\\"species\\\": [],    \\\"vehicles\\\": [        \\\"http://swapi.dev/api/vehicles/14/\\\",        \\\"http://swapi.dev/api/vehicles/30/\\\"    ],    \\\"starships\\\": [        \\\"http://swapi.dev/api/starships/12/\\\",        \\\"http://swapi.dev/api/starships/22/\\\"    ],    \\\"created\\\": \\\"2014-12-09T13:50:51.644000Z\\\",    \\\"edited\\\": \\\"2014-12-20T21:17:56.891000Z\\\",    \\\"url\\\": \\\"http://swapi.dev/api/people/1/\\\"}\"\r\n            }\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:2525/imposters/9905/stubs/0",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "2525",
+									"path": [
+										"imposters",
+										"9905",
+										"stubs",
+										"0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "2. Tests",
+			"item": [
+				{
+					"name": "1. ProxyOnce - Record / Replay",
+					"item": [
+						{
+							"name": "1. Real Service",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://swapi.dev/api/people/1",
+									"protocol": "https",
+									"host": [
+										"swapi",
+										"dev"
+									],
+									"path": [
+										"api",
+										"people",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Recording / Replaying",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:9905/api/people/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9905",
+									"path": [
+										"api",
+										"people",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
